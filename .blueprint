@@ -1,0 +1,28 @@
+created:
+    - database/factories/SliderFactory.php
+    - database/factories/NewsFactory.php
+    - database/factories/IndexFactory.php
+    - database/factories/JournalFactory.php
+    - database/factories/SyncJournalSecondFactory.php
+    - database/factories/SyncJournalThirdFactory.php
+    - database/migrations/2024_11_19_062359_create_sliders_table.php
+    - database/migrations/2024_11_19_062400_create_news_table.php
+    - database/migrations/2024_11_19_062401_create_indices_table.php
+    - database/migrations/2024_11_19_062402_create_journals_table.php
+    - database/migrations/2024_11_19_062403_create_sync_journal_seconds_table.php
+    - database/migrations/2024_11_19_062404_create_sync_journal_thirds_table.php
+    - database/migrations/2024_11_19_062405_create_index_journal_table.php
+    - app/Models/Slider.php
+    - app/Models/News.php
+    - app/Models/Index.php
+    - app/Models/Journal.php
+    - app/Models/SyncJournalSecond.php
+    - app/Models/SyncJournalThird.php
+models:
+    User: { name: string, email: string, email_verified_at: 'timestamp nullable', password: string, remember_token: 'string:100 nullable' }
+    Slider: { id: bigIncrements, image: text, status: boolean, timestamps: timestamps }
+    News: { id: bigIncrements, title: 'string:255', thumbnail: text, description: text, content: text, slug: 'string:255', user_id: foreign, is_active: 'boolean default:true', timestamps: timestamps, relationships: { belongsTo: User } }
+    Index: { id: bigIncrements, name: 'string:255', timestamps: timestamps, relationships: { belongsToMany: Journal } }
+    Journal: { id: bigIncrements, title: 'string:255', issn_print: 'string:255 nullable', issn_online: 'string:255 nullable', about_desc: text, scope_desc: text, journal_url: 'string:255 nullable', cover_url: 'string:255 nullable', submit_url: 'string:255 nullable', guide_url: 'string:255 nullable', archive_url: 'string:255 nullable', publisher: 'string:255 nullable', contact_name: 'string:255 nullable', contact_email: 'string:255 nullable', user_id: 'foreign nullable', slug: 'string:255', is_active: 'boolean default:false', is_image_from_sync: 'boolean default:true', path: 'string:255', is_manual_created: 'boolean nullable', accreditation: 'enum:NOT_ACCREDITED,SINTA_1,SINTA_2,SINTA_3,SINTA_4,SINTA_5,SINTA_6', timestamps: timestamps, relationships: { belongsTo: User, belongsToMany: Index } }
+    SyncJournalSecond: { id: bigIncrements, title: 'string:255', cover: 'string:255 nullable', issn_print: 'string:255 nullable', issn_online: 'string:255 nullable', publisher: 'string:255 nullable', contact_email: 'string:255 nullable', contact_name: 'string:255 nullable', description: 'text nullable', aims_and_scope: 'text nullable', archive_url: 'string:255 nullable', submit_url: 'string:255 nullable', author_guide_url: 'string:255 nullable', path: 'string:255', base_url: 'string:255 nullable', timestamps: timestamps }
+    SyncJournalThird: { id: bigIncrements, title: 'string:255', cover: 'string:255 nullable', issn_print: 'string:255 nullable', issn_online: 'string:255 nullable', publisher: 'string:255 nullable', contact_email: 'string:255 nullable', contact_name: 'string:255 nullable', description: 'text nullable', aims_and_scope: 'text nullable', archive_url: 'string:255 nullable', submit_url: 'string:255 nullable', author_guide_url: 'string:255 nullable', path: 'string:255', base_url: 'string:255 nullable', timestamps: timestamps }

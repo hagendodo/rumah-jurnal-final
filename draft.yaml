@@ -1,0 +1,89 @@
+models:
+  Slider:
+    id: bigIncrements
+    image: text
+    status: boolean
+    timestamps: true
+
+  News:
+    id: bigIncrements
+    title: string:255
+    thumbnail: text
+    description: text
+    content: text
+    slug: string:255
+    user_id: foreign
+    is_active: boolean default:true
+    timestamps: true
+    relationships:
+      belongsTo: User
+
+  Index:
+    id: bigIncrements
+    name: string:255
+    timestamps: true
+    relationships:
+      belongsToMany: Journal
+
+  Journal:
+    id: bigIncrements
+    title: string:255
+    issn_print: string:255 nullable
+    issn_online: string:255 nullable
+    about_desc: text
+    scope_desc: text
+    journal_url: string:255 nullable
+    cover_url: string:255 nullable
+    submit_url: string:255 nullable
+    guide_url: string:255 nullable
+    archive_url: string:255 nullable
+    publisher: string:255 nullable
+    contact_name: string:255 nullable
+    contact_email: string:255 nullable
+    user_id: foreign nullable
+    slug: string:255
+    is_active: boolean default:false
+    is_image_from_sync: boolean default:true
+    path: string:255
+    is_manual_created: boolean nullable
+    accreditation: enum:NOT_ACCREDITED,SINTA_1,SINTA_2,SINTA_3,SINTA_4,SINTA_5,SINTA_6
+    timestamps: true
+    relationships:
+      belongsTo: User
+      belongsToMany: Index
+
+  SyncJournalSecond:
+    id: bigIncrements
+    title: string:255
+    cover: string:255 nullable
+    issn_print: string:255 nullable
+    issn_online: string:255 nullable
+    publisher: string:255 nullable
+    contact_email: string:255 nullable
+    contact_name: string:255 nullable
+    description: text nullable
+    aims_and_scope: text nullable
+    archive_url: string:255 nullable
+    submit_url: string:255 nullable
+    author_guide_url: string:255 nullable
+    path: string:255
+    base_url: string:255 nullable
+    timestamps: true
+
+  SyncJournalThird:
+    id: bigIncrements
+    title: string:255
+    cover: string:255 nullable
+    issn_print: string:255 nullable
+    issn_online: string:255 nullable
+    publisher: string:255 nullable
+    contact_email: string:255 nullable
+    contact_name: string:255 nullable
+    description: text nullable
+    aims_and_scope: text nullable
+    archive_url: string:255 nullable
+    submit_url: string:255 nullable
+    author_guide_url: string:255 nullable
+    path: string:255
+    base_url: string:255 nullable
+    timestamps: true
