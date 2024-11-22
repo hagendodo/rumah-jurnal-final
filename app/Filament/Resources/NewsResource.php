@@ -55,20 +55,19 @@ class NewsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')
+                    ->words(7)
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
-                    ->searchable(),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->label('Diposting pada')
+                    ->dateTime()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('user.name')
+                    ->label('Oleh')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->label('Tampil di web')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('timestamp')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

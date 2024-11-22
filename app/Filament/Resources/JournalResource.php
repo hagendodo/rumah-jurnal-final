@@ -32,13 +32,13 @@ class JournalResource extends Resource
                 Forms\Components\Select::make('accreditation')
                     ->label('Accreditation')
                     ->options([
-                        'NOT_ACCREDITED',
-                        'SINTA_1',
-                        'SINTA_2',
-                        'SINTA_3',
-                        'SINTA_4',
-                        'SINTA_5',
-                        'SINTA_6',
+                        'NOT_ACCREDITED' => 'NOT ACCREDITED',
+                        'SINTA_1' => 'SINTA 1',
+                        'SINTA_2' => 'SINTA 2',
+                        'SINTA_3' => 'SINTA 3',
+                        'SINTA_4' => 'SINTA 4',
+                        'SINTA_5' => 'SINTA 5',
+                        'SINTA_6' => 'SINTA 6',
                     ])
                     ->default(0),
                 Forms\Components\RichEditor::make('about_desc')
@@ -92,7 +92,8 @@ class JournalResource extends Resource
                 Tables\Columns\ImageColumn::make('cover_url') // Displays the image
                 ->label('Cover')
                     ->width(150)
-                    ->height("auto"),
+                    ->height("auto")
+                    ->default('https://journal.uinsgd.ac.id/custom/img/uin2.png'),
 
                 Tables\Columns\TextColumn::make('title')
                     ->words(6)
@@ -134,7 +135,7 @@ class JournalResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -29,13 +29,21 @@ class SyncJournalSecondResource extends Resource
                 Tables\Columns\TextColumn::make('title')->sortable()->wrap()->searchable(),
                 Tables\Columns\TextColumn::make('issn_print')->sortable(),
                 Tables\Columns\TextColumn::make('issn_online')->sortable(),
-                Tables\Columns\TextColumn::make('imported')
+                Tables\Columns\IconColumn::make('imported')
                     ->label('Imported')  // Optional: Set a custom label
-                    ->formatStateUsing(fn ($record) => $record->relatedTable()->exists() ? 'True' : 'False'),
+                    ->getStateUsing(function ($record){
+                        $data = SyncJournalSecond::with('existJournal')->where('id', $record->id)->first();
+
+                        return (bool)$data->existJournal;})
+                    ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
-                // Define filters if needed
+//                Tables\Filters\SelectFilter::make('imported')
+//                    ->options([
+//                        'false' => 'Not Imported',
+//                        'true' => 'Imported',
+//                    ])
             ])
             ->actions([]) // Disable actions (no create, edit, delete)
             ->bulkActions([
@@ -46,6 +54,7 @@ class SyncJournalSecondResource extends Resource
                         ->action(function ($records) {
 
                             $recorda = $records->pluck('id')->all();
+                            $importedCount = 0;
 
                             foreach ($recorda as $recordId) {
                                 // Find the SyncJournalSecond record by ID
@@ -74,7 +83,6 @@ class SyncJournalSecondResource extends Resource
                                         'is_image_from_sync' => $record->is_image_from_sync ?? false,  // Default to false if not available
                                         'path' => $record->path,
                                         'is_manual_created' => $record->is_manual_created ?? false, // Default to false if not available
-                                        'accreditation' => 'NOT_ACCREDITED',
                                         'created_at' => $record->created_at,  // Or set it to now() if needed
                                         'updated_at' => now(),  // Set the current timestamp
                                     ];
@@ -89,13 +97,15 @@ class SyncJournalSecondResource extends Resource
                                         $journalData  // Data to insert or update
                                     );
 
-                                    Notification::make()
-                                        ->title('Notification')
-                                        ->success()
-                                        ->body(count($recorda).' journal has been imported')
-                                        ->send();
+                                    $importedCount++;
                                 }
                             }
+
+                            Notification::make()
+                                ->title('Journal Status')
+                                ->success()
+                                ->body($importedCount.' journal has been imported')
+                                ->send();
 
                         })
                         ->requiresConfirmation() // Optional: ask for confirmation

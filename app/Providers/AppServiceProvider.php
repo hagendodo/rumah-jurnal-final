@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
             // Check roles and register navigation item
             if ($user && $user->roles->contains('name', 'Super Admin')) {
                 $filamentMenus[] = NavigationItem::make('Log System')
-                        ->url('/log-viewer')
+                        ->url('/log-viewer', shouldOpenInNewTab: true)
                         ->icon('heroicon-o-document-chart-bar')
                         ->sort(1);
 

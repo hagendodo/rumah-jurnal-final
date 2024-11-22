@@ -1,26 +1,22 @@
-<x-client-layout :searchbar="true">
+<x-client-layout>
     @isset($sliders)
         <div class="carousel relative shadow-2xl bg-white">
             <div class="carousel-inner relative overflow-hidden w-full">
                 <!-- Slide 1 -->
                 @foreach($sliders as $slide)
                     <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden checked="checked">
-                    <div class="carousel-item absolute opacity-0" style="height:80vh;">
+                    <div class="carousel-item absolute opacity-0" style="height:600px;">
                         <img class="w-full" alt="img1" src="{{ asset('storage/'.$slide->image) }}">
                     </div>
                 @endforeach
 
                 <!-- Add additional indicators for each slide -->
                 <ol class="carousel-indicators">
-                    <li class="inline-block mr-3">
-                        <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                    <li class="inline-block mr-3">
-                        <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
-                    <li class="inline-block mr-3">
-                        <label for="carousel-3" class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
-                    </li>
+                    @foreach($sliders as $slide)
+                        <li class="inline-block mr-3">
+                            <label for="carousel-{{$loop->iteration}}" class="carousel-bullet cursor-pointer block text-4xl text-white hover:text-blue-700">•</label>
+                        </li>
+                    @endforeach
                 </ol>
             </div>
         </div>
@@ -46,7 +42,7 @@
                     </button>
                 </form>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-6 w-full">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full">
                 @foreach($journals as $journal)
                 <x-journal-card :journal="$journal" />
                 @endforeach
@@ -75,23 +71,9 @@
                             <option value="NOT_ACCREDITED" data-type="accreditation">Non Sinta Index</option>
                         </optgroup>
                         <optgroup label="INDEXED BY">
-                            <option value="BASE" data-type="indexed">BASE</option>
-                            <option value="COPERNICUS" data-type="indexed">COPERNICUS</option>
-                            <option value="CROSSREF" data-type="indexed">CROSSREF</option>
-                            <option value="DIMENSIONS" data-type="indexed">DIMENSIONS</option>
-                            <option value="DOAJ" data-type="indexed">DOAJ</option>
-                            <option value="EBSCO" data-type="indexed">EBSCO</option>
-                            <option value="GARUDA" data-type="indexed">GARUDA (Garba Rujukan Digital)</option>
-                            <option value="GOOGLE_SCHOLAR" data-type="indexed">Google Scholar</option>
-                            <option value="ISJD" data-type="indexed">ISJD</option>
-                            <option value="MORAREF" data-type="indexed">MORAREF</option>
-                            <option value="OJS" data-type="indexed">OJS</option>
-                            <option value="PKP" data-type="indexed">PKP</option>
-                            <option value="PROQUEST" data-type="indexed">PROQUEST</option>
-                            <option value="PUBMED" data-type="indexed">PUBMED</option>
-                            <option value="SINTA" data-type="indexed">SINTA (Science and Technology Index)</option>
-                            <option value="SIS" data-type="indexed">SIS</option>
-                            <option value="SCOPUS" data-type="indexed">SCOPUS</option>
+                            @foreach($indices as $index)
+                                <option value="{{ str_replace(' ', '_', $index->name) }}" data-type="indexed">{{ $index->name }}</option>
+                            @endforeach
                         </optgroup>
                     </select>
                 </div>

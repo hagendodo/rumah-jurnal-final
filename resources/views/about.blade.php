@@ -1,4 +1,4 @@
-<x-client-layout>
+<x-client-layout :searchbar="true">
     <div class="flex flex-col items-center py-5 mb-5">
         <div class="lg:w-2/3 md:w-5/6 sm:w-full">
             <h5 class="text-lg font-bold">About Us</h5>
@@ -43,7 +43,7 @@
                         <div class="flex flex-col items-center mb-5">
                             <img src="{{ asset('assets/images/our-team/leader.jpeg') }}" class="w-48 h-48 object-cover rounded-full" alt="Rifqi Syamsul Fuadi, S.T." />
                             <div class="mt-2 text-center">
-                                <h4>Rifqi Syamsul Fuadi, S.T.</h4>
+                                <h4>Rifqi Syamsul Fuadi, S.T., M.Kom</h4>
                                 <p class="text-gray-500">Ketua Rumah Jurnal</p>
                             </div>
                         </div>

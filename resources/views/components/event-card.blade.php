@@ -16,8 +16,9 @@
         </div>
 
         <div class="flex justify">
-            <p class="text-gray-700">{{ $event->description }}</p>
+            <p class="text-gray-700">{{ Str::limit($event->description, 100, '...') }}</p>
         </div>
+
 
         <div class="flex justify-center">
             <a

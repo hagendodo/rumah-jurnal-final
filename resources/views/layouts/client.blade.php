@@ -120,6 +120,27 @@
         </div>
     </nav>
     <div class="pt-1 bg-gradient-to-r from-primeGreen via-primeGreen to-primeYellow"></div>
+    @if($searchbar)
+    <div class="w-full flex justify-center bg-cover bg-center py-16 bg-hero">
+            <div class="relative w-3/5">
+{{--                <form method="GET" action="">--}}
+{{--                    <input--}}
+{{--                        class="w-full bg-white placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-3 pr-28 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"--}}
+{{--                        placeholder="Search for a journal name or ISSN number ..."--}}
+{{--                        name="search"--}}
+{{--                        value="{{ request('search') }}">--}}
+{{--                    <button--}}
+{{--                        class="absolute top-1 right-1 flex items-center rounded bg-primeGreen py-1 px-2.5 border border-transparent text-center text-sm text-white transition-all shadow-sm hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 hover:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"--}}
+{{--                        type="submit">--}}
+{{--                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2">--}}
+{{--                            <path fill-rule="evenodd" d="M10.5 3.75a6.75 6.75 0 1 0 0 13.5 6.75 6.75 0 0 0 0-13.5ZM2.25 10.5a8.25 8.25 0 1 1 14.59 5.28l4.69 4.69a.75.75 0 1 1-1.06 1.06l-4.69-4.69A8.25 8.25 0 0 1 2.25 10.5Z" clip-rule="evenodd" />--}}
+{{--                        </svg>--}}
+{{--                        Search--}}
+{{--                    </button>--}}
+{{--                </form>--}}
+            </div>
+    </div>
+    @endif
     {{ $slot }}
     <div class="flex justify-center bg-primeGray">
         <div>
@@ -137,11 +158,9 @@
                     <p>Management and Assessment of UIN SGD Journals is a web based application to manage and assess the journals published by UIN Sunan Gunung Djati</p>
                     <br />
                     <p>CONTACT</p>
-                    <p>Rumah Jurnal Pusat Teknologi Informasi dan Pangkalan Data (PTIPD)</p>
-                    <br />
                     <p>UIN SGD Kampus 1 Jl. A. H. Nasution No. 105, Cibiru, Bandung 40614</p>
                 </div>
-                <div class="w-1/4">
+                <div class="w-1/4 flex flex-col items-center">
                     <p>CATEGORIES</p>
                     <p><a href="https://uinsgd.ac.id/" target="_blank">UIN SGD</a></p>
                     <p><a href="https://rumahjurnal.uinsgd.ac.id/" target="_blank">Rumah Jurnal</a></p>
@@ -170,12 +189,14 @@
     </div>
     <script>
         let currentIndex = 1;
-        const totalSlides = 3; // Total number of slides
+        const totalSlides = 5; // Total number of slides
         const intervalTime = 5000; // 3 seconds
 
         setInterval(() => {
             currentIndex = currentIndex < totalSlides ? currentIndex + 1 : 1; // Loop back to the first slide
-            document.getElementById(`carousel-${currentIndex}`).checked = true;
+            try{
+                document.getElementById(`carousel-${currentIndex}`).checked = true;
+            }catch(err){}
         }, intervalTime);
     </script>
 </body>

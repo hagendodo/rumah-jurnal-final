@@ -31,7 +31,7 @@ class SyncJournalSecond extends Model
         'base_url',
     ];
 
-    public function relatedTable()
+    public function existJournal()
     {
         return $this->hasOne(Journal::class, 'path', 'path');
     }

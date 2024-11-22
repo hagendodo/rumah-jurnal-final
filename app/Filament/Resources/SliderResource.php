@@ -45,7 +45,12 @@ class SliderResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\ImageColumn::make('image') // Displays the image
+                ->label('Banner')
+                    ->width(300)
+                    ->height("auto"),
                 Tables\Columns\IconColumn::make('status')
+                    ->label('Tampil di beranda')
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()

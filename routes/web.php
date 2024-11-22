@@ -21,6 +21,7 @@ Route::get('/', function (Request $request) {
         } elseif ($type === 'indexed') {
             // Apply filter for indexed journals by index name
             $query->whereHas('indices', function ($q) use ($filter) {
+                $filter = str_replace('_', ' ', $filter); // Replace underscores with spaces
                 $q->where('name', $filter);
             });
         }
@@ -36,7 +37,7 @@ Route::get('/', function (Request $request) {
                 ->orWhere('issn_print', 'like', '%' . $search . '%')
                 ->orWhere('issn_online', 'like', '%' . $search . '%');
         });
-    })->paginate(20);
+    })->paginate(12);
 
     // Accreditation statistics
     $accreditationStats = [
@@ -51,9 +52,10 @@ Route::get('/', function (Request $request) {
     ];
 
     $sliders = \App\Models\Slider::where('status', true)->get();
+    $indices = \App\Models\Index::all();
 
     // Return the view with journals and accreditation statistics
-    return view('index', compact(['journals', 'accreditationStats', 'sliders']));
+    return view('index', compact(['journals', 'accreditationStats', 'sliders', 'indices']));
 })->name('home');
 
 Route::get('/journal/{slug}', function (Request $request) {
@@ -73,7 +75,7 @@ Route::get('/contact', function () {
 })->name('contact');
 
 Route::get('/event', function () {
-    $events = News::paginate(10);
+    $events = News::orderByDesc('created_at')->paginate(10);
     return view('event', compact('events'));
 })->name('client.event.index');
 
