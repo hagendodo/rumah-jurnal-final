@@ -19,6 +19,7 @@ class SliderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-photo';
 
+
     public static function form(Form $form): Form
     {
         return $form

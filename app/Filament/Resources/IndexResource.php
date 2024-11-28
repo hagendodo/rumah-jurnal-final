@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -22,6 +23,11 @@ class IndexResource extends Resource
     protected static ?string $navigationLabel = 'Index';
 
     protected static ?string $breadcrumb = 'Index';
+
+    public function getTitle(): string | Htmlable
+    {
+        return "Index";
+    }
 
     public static function form(Form $form): Form
     {
